@@ -28,10 +28,10 @@ logging.warning(Fore.GREEN + "WELCOME TO IDLE MASTER" + Fore.RESET)
 
 try:
     authData={}
-    authData["sort"]=""
-    authData["steamparental"]=""
-    authData["hasPlayTime"]="false"
-    execfile("./settings.txt",authData)
+	authData["sort"]=""
+	authData["steamparental"]=""
+	authData["hasPlayTime"]="false"
+	execfile("./settings.txt",authData)
     myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLogin"][:17]
 except:
     logging.warning(Fore.RED + "Error loading config file" + Fore.RESET)
