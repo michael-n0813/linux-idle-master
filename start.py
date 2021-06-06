@@ -32,7 +32,7 @@ try:
 	authData["steamparental"]=""
 	authData["hasPlayTime"]="false"
 	execfile("./settings.txt",authData)
-        myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLogin"][:17]
+	myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLogin"][:17]
 except:
 	logging.warning(Fore.RED + "Error loading config file" + Fore.RESET)
 	raw_input("Press Enter to continue...")
