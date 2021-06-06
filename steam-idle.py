@@ -37,7 +37,7 @@ def get_steam_api():
         
     return steam_api
 
-    
+
 def init_gui(str_app_id):
     gui = tk.Tk()
     gui.title('App ' + str_app_id)
@@ -72,4 +72,3 @@ if __name__ == '__main__':
         
     gui = init_gui(str_app_id)
     gui.mainloop()
-    
