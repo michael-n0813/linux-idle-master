@@ -2,18 +2,19 @@ AUTHORS:
 
 jshackles, Stumpokapow, Michael Noble.
 
+********* UPDATED FOR PYTHON 3 ***************** 2021-06-25
+
 
 REQUIREMENTS:
 
-The script needs these Python 2 packages to run:
-requests
-beautifulsoup4
-pillow (with jpeg and tk support)
-colorama
+The script needs these Python packages to run:
+ * requests
+ * beautifulsoup4
+ * pillow (with jpeg and tk support)
+ * colorama
 
-Examples for packages that meet the dependencies:
-Ubuntu: python-bs4, python-requests, python-pil.imagetk, python-colorama
-Arch Linux: python2-beautifulsoup4, python2-requests, python2-pillow, tk, python2-colorama
+Examples for Arch:
+pacman -S python-beautifulsoup4, python-requests, python-pillow, python-colorama, tk
 
 
 SETUP:
@@ -27,9 +28,8 @@ then copy steamLoginSecure Content (really long alpha-numerical code) from cooki
 
 
 HOW TO RUN:
-open terminal and cd to idle master folder
-type:
-    python2 ./start.py
+1.) open terminal and cd to idle master folder
+2.) python ./start.py
 
 
 LICENCE:
