@@ -14,7 +14,7 @@ The script needs these Python packages to run:
  * colorama
 
 Examples for Arch:
-pacman -S python-beautifulsoup4, python-requests, python-pillow, python-colorama, tk
+pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk
 
 
 SETUP:
