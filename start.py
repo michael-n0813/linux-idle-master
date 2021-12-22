@@ -79,7 +79,7 @@ def idleOpen(appID):
         elif sys.platform.startswith('darwin'):
             process_idle = subprocess.Popen(["./steam-idle", str(appID)])
         elif sys.platform.startswith('linux'):
-            process_idle = subprocess.Popen(["python2", "steam-idle.py", str(appID)])
+            process_idle = subprocess.Popen(["python", "steam-idle.py", str(appID)])
     except:
         logging.warning(Fore.RED + "Error launching steam-idle with game ID " + str(appID) + Fore.RESET)
         input("Press Enter to continue...")
