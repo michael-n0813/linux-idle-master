@@ -1,3 +1,4 @@
+#!/bin/env python
 import requests
 import http.cookiejar
 import bs4
