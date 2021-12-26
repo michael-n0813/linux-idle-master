@@ -32,7 +32,7 @@ try:
     authData["steamparental"]=""
     authData["hasPlayTime"]="false"
     exec(open("./settings.txt").read(),authData)
-    myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLogin"][:17]
+    myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLoginSecure"][:17]
 except:
     logging.warning(Fore.RED + "Error loading config file" + Fore.RESET)
     input("Press Enter to continue...")
@@ -42,16 +42,11 @@ if not authData["sessionid"]:
     logging.warning(Fore.RED + "No sessionid set" + Fore.RESET)
     input("Press Enter to continue...")
     sys.exit()
-    
-if not authData["steamLogin"]:
-    logging.warning(Fore.RED + "No steamLogin set" + Fore.RESET)
-    input("Press Enter to continue...")
-    sys.exit()
 
 def generateCookies():
     global authData
     try:
-        cookies = dict(sessionid=authData["sessionid"], steamLoginSecure=authData["steamLogin"], steamparental=authData["steamparental"])
+        cookies = dict(sessionid=authData["sessionid"], steamLoginSecure=authData["steamLoginSecure"], steamparental=authData["steamparental"])
     except:
         logging.warning(Fore.RED + "Error setting cookies" + Fore.RESET)
         input("Press Enter to continue...")
@@ -79,7 +74,7 @@ def idleOpen(appID):
         elif sys.platform.startswith('darwin'):
             process_idle = subprocess.Popen(["./steam-idle", str(appID)])
         elif sys.platform.startswith('linux'):
-            process_idle = subprocess.Popen(["python2", "steam-idle.py", str(appID)])
+            process_idle = subprocess.Popen(["python", "steam-idle.py", str(appID)])
     except:
         logging.warning(Fore.RED + "Error launching steam-idle with game ID " + str(appID) + Fore.RESET)
         input("Press Enter to continue...")
@@ -208,6 +203,7 @@ for badge in badgeSet:
                 continue
             else:
                 if authData["sort"]=="mostvalue" or authData["sort"]=="leastvalue":
+                    # as of 2021, enhancedsteam.com can't be used anymore to check prices. So "mostvalue" / "leastvalue" sort order are invalid.
                     gameValue = requests.get("https://api.enhancedsteam.com/market_data/average_card_price/?appid=" + str(badgeId) + "&cur=usd")
                     push = [badgeId, dropCountInt, float(str(gameValue.text))]
                     badgesLeft.append(push)
