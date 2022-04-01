@@ -33,7 +33,7 @@ try:
     authData["steamparental"]=""
     authData["hasPlayTime"]="false"
     exec(open("./settings.txt").read(),authData)
-    myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLogin"][:17]
+    myProfileURL = "https://steamcommunity.com/profiles/"+authData["steamLoginSecure"][:17]
 except:
     logging.warning(Fore.RED + "Error loading config file" + Fore.RESET)
     input("Press Enter to continue...")
@@ -44,7 +44,7 @@ if not authData["sessionid"]:
     input("Press Enter to continue...")
     sys.exit()
     
-if not authData["steamLogin"]:
+if not authData["steamLoginSecure"]:
     logging.warning(Fore.RED + "No steamLogin set" + Fore.RESET)
     input("Press Enter to continue...")
     sys.exit()
@@ -52,7 +52,7 @@ if not authData["steamLogin"]:
 def generateCookies():
     global authData
     try:
-        cookies = dict(sessionid=authData["sessionid"], steamLoginSecure=authData["steamLogin"], steamparental=authData["steamparental"])
+        cookies = dict(sessionid=authData["sessionid"], steamLoginSecure=authData["steamLoginSecure"], steamparental=authData["steamparental"])
     except:
         logging.warning(Fore.RED + "Error setting cookies" + Fore.RESET)
         input("Press Enter to continue...")
