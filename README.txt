@@ -19,12 +19,14 @@ pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk
 
 SETUP:
 * Log in to steam on a browser
-* Search your cookies for store.steampowered.com
+* Search your cookies for store.steampowered.com | Firefox user can use *Shift-F9 to inspect cookie data *(Firefox v98.0 tested)
 * Edit setting.txt and copy-paste sessionid Content (an alpha-numerical code) from cookie data to the first field,
 then copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt.
 * Save settings.txt and exit
 
-**Note: Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
+** Note: Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
+
+*** Steam market API seems to be down so sorting will no longer work.
 
 
 HOW TO RUN:

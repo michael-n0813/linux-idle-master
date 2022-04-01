@@ -1,4 +1,4 @@
 sessionid = ""
-steamLogin = ""
+steamLoginSecure = ""
 steamparental = ""
 sort = ""
