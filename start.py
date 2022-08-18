@@ -209,8 +209,16 @@ for badge in badgeSet:
                 continue
             else:
                 if authData["sort"]=="mostvalue" or authData["sort"]=="leastvalue":
-                    gameValue = requests.get("https://api.enhancedsteam.com/market_data/average_card_price/?appid=" + str(badgeId) + "&cur=usd")
-                    push = [badgeId, dropCountInt, float(str(gameValue.text))]
+                    api = requests.get("https://api.augmentedsteam.com/v2/market/cards/average-prices/?appids=" + str(badgeId) + "&currency=usd")
+                    api_data = json.loads(api.text)
+
+                    if str(api_data['data']) == "[]":
+                        logging.warning("No card data for" + Fore.CYAN + " App " + str(badgeId) + Fore.RESET + " skipping...")
+                        gameVale = "0"
+                    else:
+                        gameValue = api_data['data'][str(badgeId)]['regular']
+                    
+                    push = [badgeId, dropCountInt, float(str(gameValue))]
                     badgesLeft.append(push)
                 else:
                     push = [badgeId, dropCountInt, 0]

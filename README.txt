@@ -4,6 +4,8 @@ jshackles, Stumpokapow, Michael Noble.
 
 ********* UPDATED FOR PYTHON 3 ***************** 2021-06-25
 
+********* UPDATED FOR NEW API ****************** 2022-08-18
+
 
 REQUIREMENTS:
 
@@ -26,12 +28,24 @@ then copy steamLoginSecure Content (really long alpha-numerical code) from cooki
 
 ** Note: Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
 
-*** Steam market API seems to be down so sorting will no longer work.
-
 
 HOW TO RUN:
 1.) open terminal and cd to idle master folder
 2.) python ./start.py
+
+SORTING:
+* Edit the setting.txt and in the sort field add the following
+
+    > mostcards     (idles game with the most card drops remaining)
+    > leastcards    (idles game with the least card drops remaining)
+    > mostvalue     (idles game with the most expensive card drops remaining)
+    > leastvalue    (idles game with the least expensive card drops remaining)
+
+
+** The old "Enhanced Steam" API was taken down but was revived by "IsThereAnyDeal" with a new
+browser extention and API, the new API is called "Augmented Steam". None of the APIs use user
+data but are only used to check the cards average price on steam market place and sort which
+games to idle appropriately.
 
 
 LICENCE:
