@@ -214,7 +214,7 @@ for badge in badgeSet:
 
                     if api.text.find('regular') == -1:
                         logging.warning("No card data for" + Fore.CYAN + " App " + str(badgeId) + Fore.RESET + " skipping...")
-                        gameVale = "0"
+                        gameValue = "0"
                     else:
                         gameValue = api_data['data'][str(badgeId)]['regular']
                     
