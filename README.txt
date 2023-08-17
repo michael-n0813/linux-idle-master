@@ -26,8 +26,13 @@ SETUP:
 * Search your cookies for store.steampowered.com | Firefox user can use *Shift-F9 to inspect cookie data *(Firefox v98.0 tested)
 * Rename settings-template.txt to settings.txt
 * Edit setting.txt and copy-paste sessionid Content (an alpha-numerical code) from cookie data to the first field,
-then copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt.
+then copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt
 * Save settings.txt and exit
+
+(optional) Blacklisting games
+* Create a file called blacklist.txt in the same folder as the script
+* Add game ID, each game ID should be on a seperate line
+* Save blacklist.txt and exit
 
 ** Note: Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
 
