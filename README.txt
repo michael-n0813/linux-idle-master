@@ -24,6 +24,7 @@ pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk
 SETUP:
 * Log in to steam on a browser
 * Search your cookies for store.steampowered.com | Firefox user can use *Shift-F9 to inspect cookie data *(Firefox v98.0 tested)
+* Rename settings-template.txt to settings.txt
 * Edit setting.txt and copy-paste sessionid Content (an alpha-numerical code) from cookie data to the first field,
 then copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt.
 * Save settings.txt and exit
