@@ -12,7 +12,10 @@ import logging
 import datetime
 import ctypes
 from colorama import init, Fore, Back, Style
+
 init()
+
+version = "v1.3"
 
 os.chdir(os.path.abspath(os.path.dirname(sys.argv[0])))
 
@@ -25,7 +28,7 @@ logging.getLogger('').addHandler(console)
 if sys.platform.startswith('win32'):
     ctypes.windll.kernel32.SetConsoleTitleA("Idle Master")
 
-logging.warning(Fore.GREEN + "WELCOME TO IDLE MASTER" + Fore.RESET)
+logging.warning(Fore.GREEN + "WELCOME TO IDLE MASTER - " + Fore.YELLOW + version + Fore.RESET)
 
 try:
     authData={}
@@ -91,7 +94,7 @@ def idleClose(appID):
         logging.warning("Closing game " + getAppName(appID))
         process_idle.terminate()
         total_time = int(time.time() - idle_time)
-        logging.warning(getAppName(appID) + " took " + Fore.GREEN + str(datetime.timedelta(seconds=total_time)) + Fore.RESET + " to idle.")
+        logging.warning(getAppName(appID) + " idled for " + Fore.GREEN + str(datetime.timedelta(seconds=total_time)) + Fore.RESET)
     except:
         logging.warning(Fore.RED + "Error closing game. Exiting." + Fore.RESET)
         input("Press Enter to continue...")
@@ -108,13 +111,13 @@ def chillOut(appID):
             rBadge = requests.get(myProfileURL+"/gamecards/" + str(appID) + "/",cookies=cookies)
             indBadgeData = bs4.BeautifulSoup(rBadge.text, "html.parser")
             badgeLeftString = indBadgeData.find_all("span",{"class": "progress_info_bold"})[0].contents[0]
-            if "card drops" in badgeLeftString:
+            if badgeLeftString:
                 stillDown = False
         except:
             logging.warning("Still unable to find drop info.")
     # Resume operations.
     idleOpen(appID)
-    
+
 def getAppName(appID):
     try:
         api = requests.get("https://store.steampowered.com/api/appdetails/?appids=" + str(appID) + "&filters=basic")
@@ -217,7 +220,7 @@ for badge in badgeSet:
                         gameValue = "0"
                     else:
                         gameValue = api_data['data'][str(badgeId)]['regular']
-                    
+
                     push = [badgeId, dropCountInt, float(str(gameValue))]
                     badgesLeft.append(push)
                 else:
@@ -274,16 +277,20 @@ for appID, drops, value in games:
             rBadge = requests.get(myProfileURL + "/gamecards/" + str(appID) + "/",cookies=cookies)
             indBadgeData = bs4.BeautifulSoup(rBadge.text, "html.parser")
             badgeLeftString = indBadgeData.find_all("span",{"class": "progress_info_bold"})[0].contents[0]
-            if "No card drops" in badgeLeftString:
-                logging.warning("No card drops remaining")
-                stillHaveDrops=0
-            else:
-                dropCountInt, junk = badgeLeftString.split(" ",1)
+            dropCountInt, junk = badgeLeftString.split(" ",1)
+            if dropCountInt.isdigit():
                 dropCountInt = int(dropCountInt)
                 delay = dropDelay(dropCountInt)
                 logging.warning(getAppName(appID) + " has " + str(dropCountInt) + " card drops remaining")
                 if sys.platform.startswith('win32'):
                     ctypes.windll.kernel32.SetConsoleTitleA("Idle Master - Idling " + getPlainAppName(appID) + " [" + str(dropCountInt) + " remaining]")
+            else:
+                logging.warning("No card drops remaining")
+                stillHaveDrops=0
+        except KeyboardInterrupt:
+            idleClose(appID)
+            logging.warning("User interrupted script. Exiting")
+            sys.exit()
         except:
             if maxFail>0:
                 logging.warning("Error checking if drops are done, number of tries remaining: " + str(maxFail))
@@ -292,7 +299,6 @@ for appID, drops, value in games:
                 # Suspend operations until Steam can be reached.
                 chillOut(appID)
                 maxFail+=1
-                break
 
     idleClose(appID)
     logging.warning(Fore.GREEN + "Successfully completed idling cards for " + getAppName(appID) + Fore.RESET)

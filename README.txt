@@ -2,9 +2,11 @@ AUTHORS:
 
 jshackles, Stumpokapow, Michael Noble.
 
-********* UPDATED FOR PYTHON 3 ***************** 2021-06-25
+********* UPDATED v1.1 - PYTHON 3 ********************* 2021-06-25
 
-********* UPDATED FOR NEW API ****************** 2022-08-18
+********* UPDATED v1.2 - NEW API ********************** 2022-08-18
+
+********* UPDATED v1.3 - BUG FIXES, LANG COMPAT ******* 2023-08-18
 
 
 REQUIREMENTS:
@@ -15,7 +17,7 @@ The script needs these Python packages to run:
  * pillow (with jpeg and tk support)
  * colorama
 
-Examples for Arch:
+Example for Arch:
 pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk
 
 
