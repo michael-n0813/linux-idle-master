@@ -8,6 +8,18 @@ jshackles, Stumpokapow, Michael Noble.
 
 ********* UPDATED v1.3 - BUG FIXES, LANG COMPAT ******* 2023-08-18
 
+********* UPDATED v2.0 - BIG UPDATE ******************* 2023-08-21
+
+
+VERSION 2.0 UPDATE
+ * Code Cleaned up and more consistant formatting
+ * Improved error handling, such as network loss and checking for cookie expiration without endless looping
+ * Code updated to be more compatable with languages other than english, as long as the languages uses western arabic numerals (0-9)
+ * Removed old win32 and macOS code
+ * Added .gitingore and removed config files from git, to make it easier to pull updates
+ * Added verioning to make it easier to troubleshoot issues
+ * Idle Sleep time now scales based on card count remaining, in 10 min intervals (5 cards remain = 50 mins sleep, 2 cards remain = 20 mins sleep, etc)
+
 
 REQUIREMENTS:
 
