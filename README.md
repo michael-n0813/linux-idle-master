@@ -58,8 +58,8 @@ then copy steamLoginSecure Content (really long alpha-numerical code) from cooki
 
 
 ## HOW TO RUN:
-1.) open terminal and cd to idle master folder
-2.) run `python ./start.py`
+1. open terminal and cd to idle master folder
+1. run `python ./start.py`
 
 ## SORTING:
 * Edit the setting.txt and in the sort field add the following
