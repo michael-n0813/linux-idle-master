@@ -1,6 +1,8 @@
-AUTHORS:
+## AUTHORS:
 
 jshackles, Stumpokapow, Michael Noble.
+
+## Recent updates
 
 ********* UPDATED v1.1 - PYTHON 3 ********************* 2021-06-25
 
@@ -21,7 +23,7 @@ VERSION 2.0 UPDATE
  * Idle Sleep time now scales based on card count remaining, in 10 min intervals (5 cards remain = 50 mins sleep, 2 cards remain = 20 mins sleep, etc)
 
 
-REQUIREMENTS:
+## REQUIREMENTS:
 
 The script needs these Python packages to run:
  * requests
@@ -29,11 +31,17 @@ The script needs these Python packages to run:
  * pillow (with jpeg and tk support)
  * colorama
 
-Example for Arch:
-pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk
+### Example for Arch:
+`pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama libimagequant tk`
+
+### For steamos in order to run command for the pacman, you should disable readonly folders:
+`sudo steamos-readonly disable`
+
+Strongly recommend to revert that setting after the installation:
+`sudo steamos-readonly enable`
 
 
-SETUP:
+## SETUP:
 * Log in to steam on a browser
 * Search your cookies for store.steampowered.com | Firefox user can use *Shift-F9 to inspect cookie data *(Firefox v98.0 tested)
 * Copy settings-template.txt and rename to settings.txt
@@ -49,11 +57,11 @@ then copy steamLoginSecure Content (really long alpha-numerical code) from cooki
 ** Note: Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
 
 
-HOW TO RUN:
+## HOW TO RUN:
 1.) open terminal and cd to idle master folder
-2.) python ./start.py
+2.) run `python ./start.py`
 
-SORTING:
+## SORTING:
 * Edit the setting.txt and in the sort field add the following
 
     > mostcards     (idles game with the most card drops remaining)
@@ -68,7 +76,7 @@ data but are only used to check the cards average price on steam market place an
 games to idle appropriately.
 
 
-LICENCE:
+## LICENCE:
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public 
 License as published by the Free Software Foundation. A copy of the GNU General Public License can be found at 
 http://www.gnu.org/licenses/. For your convenience, a copy of this license is included.
