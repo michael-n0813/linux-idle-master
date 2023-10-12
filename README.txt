@@ -60,7 +60,9 @@ SORTING:
     > leastcards    (idles game with the least card drops remaining)
     > mostvalue     (idles game with the most expensive card drops remaining)
     > leastvalue    (idles game with the least expensive card drops remaining)
+    > random        (idles game with card drops remaining in a random order)
 
+If unset (the default) games are idled in SteamID order.
 
 ** The old "Enhanced Steam" API was taken down but was revived by "IsThereAnyDeal" with a new
 browser extention and API, the new API is called "Augmented Steam". None of the APIs use user

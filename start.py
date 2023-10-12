@@ -12,6 +12,7 @@ import logging
 import datetime
 import ctypes
 from colorama import init, Fore, Back, Style
+import random
 
 init()
 
@@ -245,7 +246,7 @@ def getKey(item):
     else:
         return item[0]
 
-sortValues = ["", "mostcards", "leastcards", "mostvalue", "leastvalue"]
+sortValues = ["", "mostcards", "leastcards", "mostvalue", "leastvalue", "random"]
 if authData["sort"] in sortValues:
     if authData["sort"] == "":
         games = badgesLeft
@@ -253,6 +254,8 @@ if authData["sort"] in sortValues:
         games = sorted(badgesLeft, key = getKey, reverse = True)
     if authData["sort"] == "leastcards" or authData["sort"] == "leastvalue":
         games = sorted(badgesLeft, key = getKey, reverse = False)
+    if authData["sort"] == "random":
+        games = random.sample(badgesLeft, len(badgesLeft))
 else:
     logging.warning(Fore.RED + "Invalid sort value" + Fore.RESET)
     input("Press Enter to continue...")
