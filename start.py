@@ -15,7 +15,7 @@ from colorama import init, Fore, Back, Style
 
 init()
 
-version = "v2.0"
+version = "v2.1"
 
 os.chdir(os.path.abspath(os.path.dirname(sys.argv[0])))
 
@@ -116,21 +116,13 @@ def getAppName(appID):
     try:
         api = requests.get("https://store.steampowered.com/api/appdetails/?appids=" + str(appID) + "&filters=basic")
         api_data = json.loads(api.text)
-        return Fore.CYAN + api_data[str(appID)]["data"]["name"].encode('ascii', 'ignore') + Fore.RESET
+        return Fore.CYAN + api_data[str(appID)]["data"]["name"] + Fore.RESET
     except:
         return Fore.CYAN + "App " + str(appID) + Fore.RESET
 
-def getPlainAppName(appid):
-    try:
-        api = requests.get("https://store.steampowered.com/api/appdetails/?appids=" + str(appID) + "&filters=basic")
-        api_data = json.loads(api.text)
-        return api_data[str(appID)]["data"]["name"].encode('ascii', 'ignore')
-    except:
-        return "App " + str(appID)
-
 def get_blacklist():
     try:
-        with open('blacklist.txt', 'r') as f:
+        with open("blacklist.txt", "r") as f:
             lines = f.readlines()
         blacklist = [int(n.strip()) for n in lines]
     except:
@@ -140,6 +132,14 @@ def get_blacklist():
         logging.warning("No games have been blacklisted")
 
     return blacklist
+
+def blacklist_game(appID):
+    try:
+        with open("blacklist.txt", "a") as f:
+            f.write(str(appID) + "\n")
+    except:
+        logging.warning(Fore.RED + "Failed to blacklist game" + Fore.RESET)
+
 
 def cookieTest():
     try:
@@ -258,11 +258,14 @@ else:
     input("Press Enter to continue...")
     sys.exit()
 
+numSkip = 0
+
 for appID, drops, value in games:
     delay = (int(drops) * 600)
     stillHaveDrops = 1
     numCycles = 50
     maxFail = 2
+    skip = False
     
     idleOpen(appID)
 
@@ -305,8 +308,37 @@ for appID, drops, value in games:
                     stillHaveDrops = 0
         except KeyboardInterrupt:
             idleClose(appID)
-            logging.warning(Fore.RED + "User interrupted script" + Fore.RESET)
-            sys.exit()
+            logging.warning(Fore.YELLOW + "User interrupted script" + Fore.RESET)
+            
+            ans = True
+            while ans:
+                print("    q = Quit")
+                print("    r = Resume")
+                print("    s = Skip game")
+                print("    b = Blacklist game")
+
+                ans = input("Select option ... ")
+                if ans == "q" or ans == "Q": 
+                    logging.warning(Fore.RED + "User quit script" + Fore.RESET)
+                    sys.exit()
+                elif ans == "r" or ans == "R" or ans == "":
+                    logging.warning(Fore.GREEN + "Resuming idling" + Fore.RESET)
+                    idleOpen(appID)
+                    break
+                elif ans == "s" or ans == "S":
+                    logging.warning(Fore.YELLOW + "Skipping game " + Fore.GREEN + getAppName(appID) + Fore.RESET)
+                    skip = True
+                    numSkip += 1
+                    break
+                elif ans == "b" or ans == "B":
+                    logging.warning(Fore.RED + "Blacklisting game " + Fore.GREEN + getAppName(appID) + Fore.RESET)
+                    blacklist_game(appID)
+                    skip = True
+                    break
+                elif ans != "":
+                    logging.warning(Fore.YELLOW + "Invalid option ... " + Fore.RESET)
+            if skip:
+                break
         except SystemExit:
             sys.exit()
         except:
@@ -319,8 +351,10 @@ for appID, drops, value in games:
                 chillOut(appID)
                 maxFail += 1
 
-    idleClose(appID)
-    logging.warning(Fore.GREEN + "Successfully completed idling cards for " + getAppName(appID) + Fore.RESET)
+    if not skip:
+        idleClose(appID)
+        logging.warning(Fore.GREEN + "Successfully completed idling cards for " + getAppName(appID) + Fore.RESET)
 
 logging.warning(Fore.GREEN + "Successfully completed idling process" + Fore.RESET)
+logging.warning(Fore.YELLOW + numSkip + " games skipped" + Fore.RESET)
 input("Press Enter to continue...")
