@@ -30,8 +30,8 @@ Example for Arch:
 5. Copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt
 6. Save settings.txt and exit
 
-[!NOTE]
-Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
+>[!NOTE]
+>Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
 
 ### _(optional)_ BLACKLISTING GAMES
 1. Create a file called blacklist.txt in the same folder as the script
@@ -46,8 +46,8 @@ Edit the setting.txt and in the sort field add the following
  * `mostvalue`     (idles game with the most expensive card drops remaining)
  * `leastvalue`    (idles game with the least expensive card drops remaining)
 
-[!NOTE]
-The old "Enhanced Steam" API was taken down but was revived by "IsThereAnyDeal" with a new browser extention and API, the new API is called "Augmented Steam". None of the APIs use user data but are only used to check the cards average price on steam market place and sort which games to idle appropriately.
+>[!NOTE]
+>The old "Enhanced Steam" API was taken down but was revived by "IsThereAnyDeal" with a new browser extention and API, the new API is called "Augmented Steam". None of the APIs use user data but are only used to check the cards average price on steam market place and sort which games to idle appropriately.
 
 ### HOW TO RUN
 1. open terminal and `cd` to idle master folder
