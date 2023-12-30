@@ -356,5 +356,5 @@ for appID, drops, value in games:
         logging.warning(Fore.GREEN + "Successfully completed idling cards for " + getAppName(appID) + Fore.RESET)
 
 logging.warning(Fore.GREEN + "Successfully completed idling process" + Fore.RESET)
-logging.warning(Fore.YELLOW + numSkip + " games skipped" + Fore.RESET)
+logging.warning(Fore.YELLOW + str(numSkip) + " games skipped" + Fore.RESET)
 input("Press Enter to continue...")
