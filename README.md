@@ -23,12 +23,15 @@ Example for Arch:
 `pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk`
 
 ## SETUP
-1. Log in to steam on a browser
-2. Search your cookies for store.steampowered.com (Firefox user can use Shift-F9 to inspect cookie data _Firefox v98.0 tested_)
+1. Log in to https://steamcommunity.com/
+2. Search your cookies for steamcommunity.com (Firefox user can use Shift-F9 to inspect cookie data _Firefox v98.0 tested_)
 3. Copy settings-template.txt and rename to settings.txt
 4. Edit setting.txt and copy-paste sessionid Content (an alpha-numerical code) from cookie data to the first field
 5. Copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt
 6. Save settings.txt and exit
+
+>[!IMPORTANT]
+>store.steampowered.com and steamcommunity.com use different cookie data, if you get the error `Invalid cookie data, cannot log into Steam` then make sure you are using the cookie date from steamcommunity.com and **NOT** store.steampowered.com.
 
 >[!NOTE]
 >Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
