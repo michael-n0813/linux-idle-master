@@ -52,7 +52,7 @@ if not authData["steamLoginSecure"]:
 def generateCookies():
     global authData
     try:
-        cookies = dict(sessionid = authData["sessionid"], steamLoginSecure = authData["steamLoginSecure"], steamparental = authData["steamparental"])
+        cookies = dict(sessionid = authData["sessionid"], steamLoginSecure = authData["steamLoginSecure"], steamparental = authData["steamparental"], Steam_Language = "english")
     except:
         logging.warning(Fore.RED + "Error setting cookies" + Fore.RESET)
         input("Press Enter to continue...")
