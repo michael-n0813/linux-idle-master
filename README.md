@@ -1,15 +1,11 @@
 ## UPDATES
 
-### UPDATED v2.1 - USER MENU :: 2023-10-13
+### UPDATED v2.2 - COOKIES, PATH CHECKING, ERROR :: 2024-05-09
 
-VERSION 2.1 UPDATE
- * More code cleanup
- * Fixed game name function
- * Added user menu options for idling games (Press `Ctrl-C` to access menu while idling games)
- 	* q - Quit
- 	* r - Resume idling
- 	* s - Skip game (will skip idling this game)
- 	* b - Blacklist game (add appID to blacklist.txt)
+VERSION 2.2 UPDATE
+ * Added cookie setting to fix idle count for non-English users
+ * Added Python3 Path checking
+ * Fixed SyntaxWarning
 
 ## REQUIREMENTS
 
@@ -85,6 +81,17 @@ VERSION 2.0 UPDATE
  * Added .gitingore and removed config files from git, to make it easier to pull updates
  * Added verioning to make it easier to troubleshoot issues
  * Idle Sleep time now scales based on card count remaining, in 10 min intervals (5 cards remain = 50 mins sleep, 2 cards remain = 20 mins sleep, etc)
+
+### UPDATED v2.1 - USER MENU :: 2023-10-13
+
+VERSION 2.1 UPDATE
+ * More code cleanup
+ * Fixed game name function
+ * Added user menu options for idling games (Press `Ctrl-C` to access menu while idling games)
+ 	* q - Quit
+ 	* r - Resume idling
+ 	* s - Skip game (will skip idling this game)
+ 	* b - Blacklist game (add appID to blacklist.txt)
 
 ## LICENCE
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public 

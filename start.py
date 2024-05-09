@@ -15,7 +15,7 @@ from colorama import init, Fore, Back, Style
 
 init()
 
-version = "v2.1"
+version = "v2.2"
 
 os.chdir(os.path.abspath(os.path.dirname(sys.argv[0])))
 
@@ -26,6 +26,26 @@ console.setFormatter(logging.Formatter("[ %(asctime)s ] %(message)s", "%m/%d/%Y 
 logging.getLogger('').addHandler(console)
 
 logging.warning(Fore.GREEN + "WELCOME TO IDLE MASTER - " + Fore.YELLOW + version + Fore.RESET)
+
+pyPath = "python"
+
+try:
+    subprocess.call(["python3", "--version"], stdout = subprocess.DEVNULL)
+except:
+    logging.warning(Fore.RED + "python3 not installed" + Fore.RESET)
+    input("Press Enter to continue...")
+    sys.exit()
+
+try:
+    pyOut = subprocess.check_output(["python", "--version"])
+    pyVer = re.search("Python 3", str(pyOut))
+
+    if not pyVer:
+        pyPath = "python3"
+        logging.warning(Fore.YELLOW + "Python pointing to incorrect version, using Python3 instead" + Fore.RESET)
+except:
+    pyPath = "python3"
+    logging.warning(Fore.YELLOW + "Python path error, using Python3 instead" + Fore.RESET)
 
 try:
     authData = {}
@@ -66,7 +86,7 @@ def idleOpen(appID):
         global idle_time
 
         idle_time = time.time()
-        process_idle = subprocess.Popen(["python", "steam-idle.py", str(appID)])
+        process_idle = subprocess.Popen([pyPath, "steam-idle.py", str(appID)])
     except:
         logging.warning(Fore.RED + "Error launching steam-idle with game ID " + str(appID) + Fore.RESET)
         input("Press Enter to continue...")
@@ -202,7 +222,7 @@ for badge in badgeSet:
     try:
         badge_text = badge.get_text()
         dropCount = badge.find_all("span", {"class": "progress_info_bold"})[0].contents[0]
-        has_playtime = re.search("[0-9\.] hrs on record", badge_text) != None
+        has_playtime = re.search("hrs on record", badge_text) != None
 
         if "No card drops" in dropCount or (has_playtime == False and authData["hasPlayTime"].lower() == "true") :
             continue
