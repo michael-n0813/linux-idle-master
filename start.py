@@ -337,7 +337,10 @@ for appID, drops, value in games:
                 print("    s = Skip game")
                 print("    b = Blacklist game")
 
-                ans = input("Select option ... ")
+                try:
+                    ans = input("Select option ... ")
+                except KeyboardInterrupt:
+                    ans = "q"
                 if ans == "q" or ans == "Q": 
                     logging.warning(Fore.RED + "User quit script" + Fore.RESET)
                     sys.exit()
