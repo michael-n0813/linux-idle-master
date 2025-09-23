@@ -338,27 +338,27 @@ for appID, drops, value in games:
                 print("    b = Blacklist game")
 
                 try:
-                    ans = input("Select option ... ")
+                    ans = input("Select option ... [q/R/s/b]").strip().lower()
                 except KeyboardInterrupt:
                     ans = "q"
-                if ans == "q" or ans == "Q": 
+                if ans == "q":
                     logging.warning(Fore.RED + "User quit script" + Fore.RESET)
                     sys.exit()
-                elif ans == "r" or ans == "R" or ans == "":
+                elif ans == "r" or ans == "":
                     logging.warning(Fore.GREEN + "Resuming idling" + Fore.RESET)
                     idleOpen(appID)
                     break
-                elif ans == "s" or ans == "S":
+                elif ans == "s":
                     logging.warning(Fore.YELLOW + "Skipping game " + Fore.GREEN + getAppName(appID) + Fore.RESET)
                     skip = True
                     numSkip += 1
                     break
-                elif ans == "b" or ans == "B":
+                elif ans == "b" :
                     logging.warning(Fore.RED + "Blacklisting game " + Fore.GREEN + getAppName(appID) + Fore.RESET)
                     blacklist_game(appID)
                     skip = True
                     break
-                elif ans != "":
+                else:
                     logging.warning(Fore.YELLOW + "Invalid option ... " + Fore.RESET)
             if skip:
                 break
