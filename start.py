@@ -353,7 +353,7 @@ for appID, drops, value in games:
                     skip = True
                     numSkip += 1
                     break
-                elif ans == "b" :
+                elif ans == "b":
                     logging.warning(Fore.RED + "Blacklisting game " + Fore.GREEN + getAppName(appID) + Fore.RESET)
                     blacklist_game(appID)
                     skip = True
