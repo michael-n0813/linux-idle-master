@@ -1,11 +1,36 @@
+## ABOUT
+
+**Linux Idle Master** is a simple CLI Script to idle steam games for card drops  
+>Only linux based operating systems are supported
+
 ## UPDATES
 
-### UPDATED v2.2 - COOKIES, PATH CHECKING, ERROR :: 2024-05-09
+### UPDATED v3.0 - BIG UPDATE :: 2025-10-20
 
-VERSION 2.2 UPDATE
- * Added cookie setting to fix idle count for non-English users
- * Added Python3 Path checking
- * Fixed SyntaxWarning
+VERSION 3.0 UPDATE
+ * Replaced settings.txt with settings.conf
+ * Added feature to create settings.conf if file not found
+ * Removed settings-template.txt from repository
+ * Lots of bug fixes, error handling improvments
+ * Reduced API calls for getting app name
+ * Improved logging with error levels and clean output
+ * Log file now appends output, not overwritten
+ * Removed API dependant sorting options (mostvale, leastvalue)
+ * Removed python-colorama dependency requirement
+ * Implemented releases for easier version control
+
+>[!IMPORTANT]
+>Version 3.0 has changed a lot, I recommend a fresh clone of the respository to avoid any issues or confussion.
+
+## INSTALLING
+
+**OPTION A** (requires `git` package)  
+From a terminal enter  
+`git clone https://github.com/michael-n0813/linux-idle-master.git`
+
+**OPTION B**  
+Download a zip file from releases and extract the folder  
+https://github.com/michael-n0813/linux-idle-master/releases
 
 ## REQUIREMENTS
 
@@ -13,18 +38,26 @@ The script needs these Python packages to run:
  * requests
  * beautifulsoup4
  * pillow (with jpeg and tk support)
- * colorama
 
-Example for Arch:
-`pacman -S python-beautifulsoup4 python-requests python-pillow python-colorama tk`
+Example for Arch:  
+`pacman -S python-beautifulsoup4 python-requests python-pillow tk`
+
+## HOW TO RUN
+ 1. Open a terminal and `cd` to idle master folder
+ 1. Enter `python ./start.py`
+
+ * While idling a game press `Ctrl-C` to access menu
+    * q - Quit
+    * r - Resume idling
+    * s - Skip game *(will skip idling this game)*
+    * b - Blacklist game *(add appID to blacklist.txt)*
 
 ## SETUP
-1. Log in to https://steamcommunity.com/
-2. Search your cookies for steamcommunity.com (Firefox user can use Shift-F9 to inspect cookie data _Firefox v98.0 tested_)
-3. Copy settings-template.txt and rename to settings.txt
-4. Edit setting.txt and copy-paste sessionid Content (an alpha-numerical code) from cookie data to the first field
-5. Copy steamLoginSecure Content (really long alpha-numerical code) from cookie into the second field in settings.txt
-6. Save settings.txt and exit
+>For first time setup, run the script once to generate settings.conf file
+ 1. Log in to https://steamcommunity.com/ on a web browser of your choice
+ 1. Search your cookies for steamcommunity.com *(Firefox user can use Shift-F9 to inspect cookie data)*
+ 1. Edit settings.conf and copy-paste 'sessionid' content *(an alpha-numerical code)* from cookie data to the first field
+ 1. Copy-paste 'steamLoginSecure' content *(really long alpha-numerical code)* from cookie data into the second field
 
 >[!IMPORTANT]
 >store.steampowered.com and steamcommunity.com use different cookie data, if you get the error `Invalid cookie data, cannot log into Steam` then make sure you are using the cookie data from steamcommunity.com and **NOT** store.steampowered.com.
@@ -32,32 +65,38 @@ Example for Arch:
 >[!NOTE]
 >Steam login session will only last ~24hrs or less and will generate a new code when you log back in. Follow the above steps to get a new code.
 
-### _(optional)_ BLACKLISTING GAMES
-1. Create a file called blacklist.txt in the same folder as the script
-2. Add game ID, each game ID should be on a seperate line
-3. Save blacklist.txt and exit
-
-### _(optional)_ SORTING
-Edit the setting.txt and in the sort field add the following
-
- * `mostcards`     (idles game with the most card drops remaining)
- * `leastcards`    (idles game with the least card drops remaining)
- * `mostvalue`     (idles game with the most expensive card drops remaining)
- * `leastvalue`    (idles game with the least expensive card drops remaining)
+### *(optional)* STEAMPARENTAL
 
 >[!NOTE]
->The old "Enhanced Steam" API was taken down but was revived by "IsThereAnyDeal" with a new browser extention and API, the new API is called "Augmented Steam". None of the APIs use user data but are only used to check the cards average price on steam market place and sort which games to idle appropriately.
+>Unless you **need** this feature it can ignored and left as default `""`
 
-### HOW TO RUN
-1. open terminal and `cd` to idle master folder
-2. `python ./start.py`
+This is only used if using steam parental conrols  
 
-* While idling a game press `Ctrl-C` to access menu
-  * q - Quit
-  * r - Resume idling
-  * s - Skip game (will skip idling this game)
-  * b - Blacklist game (add appID to blacklist.txt)
+ 1. Log in to https://steamcommunity.com/ on a web browser of your choice
+ 1. Search your cookies for steamcommunity.com *(Firefox user can use Shift-F9 to inspect cookie data)*
+ 1. Edit the settings.conf file and copy-paste 'steamParental' content from cookie data to the third field
 
+### *(optional)* SORTING
+
+Edit the settings.conf file and in the 'sort' field add the following  
+
+ * `""`            *(Default, no sorting)*  
+ * `mostcards`     *(idles game with the most card drops remaining)*  
+ * `leastcards`    *(idles game with the least card drops remaining)*
+
+### *(optional)* HASPLAYTIME
+
+Edit the settings.conf file and in the 'hasPlaytime' field set `true` or `false` *(default `false`)*  
+
+>When set to true, only games that have been launched previously will be idled, games that are unplayed and have no playtime will not.
+
+ ### *(optional)* BLACKLISTING GAMES
+
+ 1. Create a file called blacklist.txt in the same folder as the script
+ 1. Add game ID, each game ID should be on a seperate line
+ 1. Save blacklist.txt and exit
+
+>When blacklisting games from the options menu, a blacklist.txt file will be created automatically if the file does not exist.
 
 ## AUTHORS
 
@@ -79,7 +118,7 @@ VERSION 2.0 UPDATE
  * Code updated to be more compatable with languages other than english, as long as the languages uses western arabic numerals (0-9)
  * Removed old win32 and macOS code
  * Added .gitingore and removed config files from git, to make it easier to pull updates
- * Added verioning to make it easier to troubleshoot issues
+ * Added versioning to make it easier to troubleshoot issues
  * Idle Sleep time now scales based on card count remaining, in 10 min intervals (5 cards remain = 50 mins sleep, 2 cards remain = 20 mins sleep, etc)
 
 ### UPDATED v2.1 - USER MENU :: 2023-10-13
@@ -88,10 +127,17 @@ VERSION 2.1 UPDATE
  * More code cleanup
  * Fixed game name function
  * Added user menu options for idling games (Press `Ctrl-C` to access menu while idling games)
- 	* q - Quit
- 	* r - Resume idling
- 	* s - Skip game (will skip idling this game)
- 	* b - Blacklist game (add appID to blacklist.txt)
+    * q - Quit
+    * r - Resume idling
+    * s - Skip game (will skip idling this game)
+    * b - Blacklist game (add appID to blacklist.txt)
+
+### UPDATED v2.2 - COOKIES, PATH CHECKING, ERROR :: 2024-05-09
+
+VERSION 2.2 UPDATE
+ * Added cookie setting to fix idle count for non-English users
+ * Added Python3 Path checking
+ * Fixed SyntaxWarning
 
 ## LICENCE
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public 
