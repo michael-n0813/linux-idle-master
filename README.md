@@ -4,20 +4,11 @@
 >Only linux based operating systems are supported
 
 ## UPDATES
+### UPDATED v3.1 - WHITELIST :: 2026-08-01
 
-### UPDATED v3.0 - BIG UPDATE :: 2025-10-20
-
-VERSION 3.0 UPDATE
- * Replaced settings.txt with settings.conf
- * Added feature to create settings.conf if file not found
- * Removed settings-template.txt from repository
- * Lots of bug fixes, error handling improvments
- * Reduced API calls for getting app name
- * Improved logging with error levels and clean output
- * Log file now appends output, not overwritten
- * Removed API dependant sorting options (mostvale, leastvalue)
- * Removed python-colorama dependency requirement
- * Implemented releases for easier version control
+VERSION 3.1 UPDATE
+ * Added whitelist support
+ * Added whitelist to options menu
 
 >[!IMPORTANT]
 >Version 3.0 has changed a lot, I recommend a fresh clone of the respository to avoid any issues or confussion.
@@ -51,6 +42,7 @@ Example for Arch:
     * r - Resume idling
     * s - Skip game *(will skip idling this game)*
     * b - Blacklist game *(add appID to blacklist.txt)*
+    * w - Whitelist game *(add appID to whitelist.txt)*
 
 ## SETUP
 >For first time setup, run the script once to generate settings.conf file
@@ -90,13 +82,21 @@ Edit the settings.conf file and in the 'hasPlaytime' field set `true` or `false`
 
 >When set to true, only games that have been launched previously will be idled, games that are unplayed and have no playtime will not.
 
- ### *(optional)* BLACKLISTING GAMES
+### *(optional)* BLACKLISTING GAMES
 
  1. Create a file called blacklist.txt in the same folder as the script
  1. Add game ID, each game ID should be on a seperate line
  1. Save blacklist.txt and exit
 
 >When blacklisting games from the options menu, a blacklist.txt file will be created automatically if the file does not exist.
+
+### *(optional)* WHITELISTING GAMES
+
+ 1. Create a file called whitelist.txt in the same folder as the script
+ 1. Add game ID, each game ID should be on a seperate line
+ 1. Save whitelist.txt and exit
+
+>When whitelisting games from the options menu, a whitelist.txt file will be created automatically if the file does not exist.
 
 ## AUTHORS
 
@@ -138,6 +138,20 @@ VERSION 2.2 UPDATE
  * Added cookie setting to fix idle count for non-English users
  * Added Python3 Path checking
  * Fixed SyntaxWarning
+
+### UPDATED v3.0 - BIG UPDATE :: 2025-10-20
+
+VERSION 3.0 UPDATE
+ * Replaced settings.txt with settings.conf
+ * Added feature to create settings.conf if file not found
+ * Removed settings-template.txt from repository
+ * Lots of bug fixes, error handling improvments
+ * Reduced API calls for getting app name
+ * Improved logging with error levels and clean output
+ * Log file now appends output, not overwritten
+ * Removed API dependant sorting options (mostvale, leastvalue)
+ * Removed python-colorama dependency requirement
+ * Implemented releases for easier version control
 
 ## LICENCE
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public 

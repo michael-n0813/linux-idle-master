@@ -20,7 +20,7 @@ colorYellow = "\033[33m"
 colorReset = "\033[39m"
 
 # Version
-version = "v3.0"
+version = "v3.1"
 
 # Directory
 os.chdir(os.path.abspath(os.path.dirname(sys.argv[0])))
@@ -238,6 +238,20 @@ def get_blacklist():
 
     return blacklist
 
+# Get whitelist
+def get_whitelist():
+    try:
+        with open("whitelist.txt", "r") as f:
+            lines = f.readlines()
+        whitelist = [int(n.strip()) for n in lines]
+    except:
+        whitelist = [];
+
+    if not whitelist:
+        logger.info("No games have been whitelisted")
+
+    return whitelist
+
 # Add game to blacklist
 def blacklist_game(appID):
     try:
@@ -245,6 +259,14 @@ def blacklist_game(appID):
             f.write(str(appID) + "\n")
     except:
         logger.error(colorRed + "Failed to blacklist game" + colorReset)
+
+# Add game to whitelist
+def whitelist_game(appID):
+    try:
+        with open("whitelist.txt", "a") as f:
+            f.write(str(appID) + "\n")
+    except:
+        logger.error(colorRed + "Failed to whitelist game" + colorReset)
 
 # Check if cookies valid
 def cookie_test():
@@ -302,6 +324,13 @@ if not badgePageData.find("a", {"class": "user_avatar"}):
 
 # Gather list of games to idle
 blacklist = get_blacklist()
+whitelist = get_whitelist()
+whitelistOnly = False
+
+if whitelist:
+    logger.warning(colorYellow + "Whitelisted games found, idling only whitelisted games" + colorReset)
+    whitelistOnly = True
+
 for badge in badgeSet:
     try:
         badgeText = badge.get_text()
@@ -317,12 +346,17 @@ for badge in badgeSet:
             linkGuess = badge.find_parent().find_parent().find_parent().find_all("a")[0]["href"]
             junk, badgeID = linkGuess.split("/gamecards/", 1)
             badgeID = int(badgeID.replace("/", ""))
-            if badgeID in blacklist:
-                logger.warning(colorCyan + "App " + str(badgeID) + colorYellow + " on blacklist, skipping game..." + colorReset)
-                continue
+            if whitelistOnly:
+                if badgeID in whitelist:
+                    push = [badgeID, dropCountInt, 0]
+                    badgesLeft.append(push)
             else:
-                push = [badgeID, dropCountInt, 0]
-                badgesLeft.append(push)
+                if badgeID in blacklist:
+                    logger.warning(colorCyan + "App " + str(badgeID) + colorYellow + " on blacklist, skipping game..." + colorReset)
+                    continue
+                else:
+                    push = [badgeID, dropCountInt, 0]
+                    badgesLeft.append(push)
     except:
         continue
 
@@ -335,7 +369,7 @@ if authData["sort"] == "leastcards":
     games = sorted(badgesLeft, key = lambda value: value[1], reverse = False)
 
 # Start idling games
-logger.info("Idle Master needs to idle " + colorGreen + str(len(badgesLeft)) + colorReset + " games")
+logger.info("Idle Master needs to idle " + colorGreen + str(len(badgesLeft)) + colorReset + " game(s)")
 numSkip = 0
 for appID, drops, value in games:
     delay = (int(drops) * 600)
@@ -396,6 +430,7 @@ for appID, drops, value in games:
                 print("    r = Resume")
                 print("    s = Skip game")
                 print("    b = Blacklist game")
+                print("    w = Whitelist game")
 
                 try:
                     ans = input("Select option (default=r):").strip().lower() or "r"
@@ -409,14 +444,21 @@ for appID, drops, value in games:
                     openApp = True
                     break
                 elif ans == "s":
-                    logger.warning(colorYellow + "Skipping game..." + colorReset)
+                    logger.warning(colorYellow + "Skipping game" + colorReset)
                     skip = True
                     numSkip += 1
                     break
                 elif ans == "b":
-                    logger.warning(colorYellow + "Game blacklisted, skipping game..." + colorReset)
+                    logger.warning(colorYellow + "Game blacklisted, skipping game" + colorReset)
                     blacklist_game(appID)
                     skip = True
+                    numSkip += 1
+                    break
+                elif ans == "w":
+                    logger.warning(colorYellow + "Game whitelisted, skipping game" + colorReset)
+                    whitelist_game(appID)
+                    skip = True
+                    numSkip += 1
                     break
                 else:
                     logger.warning(colorYellow + "Invalid option..." + colorReset)
@@ -447,5 +489,5 @@ for appID, drops, value in games:
 
 # Finish idling
 logger.info(colorGreen + "Successfully completed idling process" + colorReset)
-logger.warning(colorYellow + str(numSkip) + " games skipped" + colorReset)
+logger.warning(colorYellow + str(numSkip) + " game(s) skipped" + colorReset)
 input("Press Enter to continue...")
