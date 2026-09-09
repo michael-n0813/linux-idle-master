@@ -30,7 +30,6 @@ def get_steam_api():
         sys.exit()
     return steam_api
 
-
 def init_gui(str_app_id):
     gui = tk.Tk()
     gui.title('App ' + str_app_id)
@@ -48,13 +47,20 @@ def init_gui(str_app_id):
         
     label.pack()
     return gui
-    
+
+def check_signal():
+    gui.after(100, check_signal)
+
+def timer_exit():
+    print("Idling finished")
+    gui.quit()
+
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Wrong number of arguments")
+    try:
+        str_app_id = sys.argv[1]
+    except:
+        print("No app ID provided!")
         sys.exit()
-        
-    str_app_id = sys.argv[1]
     
     os.environ["SteamAppId"] = str_app_id
     try:
@@ -64,4 +70,17 @@ if __name__ == '__main__':
         sys.exit()
         
     gui = init_gui(str_app_id)
-    gui.mainloop()
+    gui.after(100, check_signal)
+
+    try:
+        timer = sys.argv[2]
+        gui.after(int(timer)*60000, timer_exit)
+        print("Idling for " + timer + " minute(s)...")
+    except:
+        pass
+
+    try:
+        gui.mainloop()
+    except KeyboardInterrupt:
+        print("User interrupted idling")
+        gui.quit()

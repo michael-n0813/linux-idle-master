@@ -4,11 +4,11 @@
 >Only linux based operating systems are supported
 
 ## UPDATES
-### UPDATED v3.1 - WHITELIST :: 2026-08-01
+### UPDATED v3.2 - FORCE IDLING :: 2026-09-10
 
-VERSION 3.1 UPDATE
- * Added whitelist support
- * Added whitelist to options menu
+VERSION 3.2 UPDATE
+ * Added keyboard interrupt signal handling for steam-idle.py (force idling mode)
+ * Added optional timer function for steam-idle.py if force idling games
 
 >[!IMPORTANT]
 >Version 3.0 has changed a lot, I recommend a fresh clone of the respository to avoid any issues or confussion.
@@ -43,6 +43,19 @@ Example for Arch:
     * s - Skip game *(will skip idling this game)*
     * b - Blacklist game *(add appID to blacklist.txt)*
     * w - Whitelist game *(add appID to whitelist.txt)*
+
+### *(optional)* FORCE IDLE GAMES
+Use this option to force idle master to idle games without cards or no remaining cards left to drop.  
+An optional timer can be set as the second argument to idle the game for a period of time (in minutes).
+
+ 1. Open a terminal and `cd` to idle master folder
+ 1. Enter `python ./steam-idle.py 'AppID' 'Minutes'`
+
+>[!NOTE]
+>Whilst this can be used to idle games you don't own, it won't unlock the cards.
+
+>[!CAUTION]
+>Use at your own discression, I take no responsability for account bans or actions resulting from use of this script.
 
 ## SETUP
 >For first time setup, run the script once to generate settings.conf file
@@ -152,6 +165,12 @@ VERSION 3.0 UPDATE
  * Removed API dependant sorting options (mostvale, leastvalue)
  * Removed python-colorama dependency requirement
  * Implemented releases for easier version control
+
+### UPDATED v3.1 - WHITELIST :: 2026-08-01
+
+VERSION 3.1 UPDATE
+ * Added whitelist support
+ * Added whitelist to options menu
 
 ## LICENCE
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public 
